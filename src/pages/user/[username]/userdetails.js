@@ -90,6 +90,10 @@ const UserDetails = () => {
         <div style={{ display: "flex" }}>
             <Stack textAlign='center' sx={{width:"50%"}}>
                 <Table>
+                <TableRow >
+                        <TableCell variant="head" sx={{ backgroundColor: '#f7f7f7', width:"40%"}}>User Id</TableCell>
+                        <TableCell>{userId || "N/A"}</TableCell>
+                    </TableRow>
                     <TableRow >
                         <TableCell variant="head" sx={{ backgroundColor: '#f7f7f7', width:"40%"}}>First Name</TableCell>
                         <TableCell>{firstName || "N/A"}</TableCell>
@@ -105,10 +109,6 @@ const UserDetails = () => {
                     <TableRow>
                         <TableCell variant="head" sx={{ backgroundColor: '#f7f7f7'}}>City</TableCell>
                         <TableCell >{city || "N/A"}</TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell variant="head" sx={{ backgroundColor: '#f7f7f7'}}>ZipCode</TableCell>
-                        <TableCell >{pinCode || "N/A"}</TableCell>
                     </TableRow>
                     </Table>
             </Stack>
@@ -129,6 +129,10 @@ const UserDetails = () => {
                     <TableRow>
                         <TableCell variant="head" sx={{ backgroundColor: '#f7f7f7'}}>OS</TableCell>
                         <TableCell >{os || "N/A"}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell variant="head" sx={{ backgroundColor: '#f7f7f7'}}>ZipCode</TableCell>
+                        <TableCell >{pinCode || "N/A"}</TableCell>
                     </TableRow>
                     </Table>  
             </Stack>

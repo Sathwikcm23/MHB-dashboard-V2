@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useMemo, useEffect, useState } from 'react';
 import {
     MaterialReactTable,
@@ -38,6 +39,12 @@ const Materialtable = () => {
     const [rowBackgroundColors, setRowBackgroundColors] = useState({});
     const [userData, setUserData] = useState([]);
     const [hoveredRow, setHoveredRow] = useState(null);
+    const [rowSelection, setRowSelection] = useState({});
+    const [selectedRowIds, setSelectedRowIds] = useState([]);
+    const [selectedSubValues, setSelectedSubValues] = useState([]);
+    const [selectedRowIndices, setSelectedRowIndices] = React.useState([]);
+    const [selectedRows, setSelectedRows] = React.useState([]);
+
 
     const theme = useTheme();
 
@@ -78,7 +85,7 @@ const Materialtable = () => {
                     user.city = city;
                 }
             });
-            setData((prevData) => [...prevData, ...usersData]);
+            setData(usersData);
 
             const promises = usersData.map(async (user) => {
                 const userId = user.sub;
@@ -257,7 +264,7 @@ const Materialtable = () => {
     };
 
 
-    const getBackgroundColor = (user,isHovered) => {
+    const getBackgroundColor = (user, isHovered) => {
         const backgroundColor = rowBackgroundColors[user.sub];
 
         return backgroundColor !== undefined ? backgroundColor : 'inherit';
@@ -403,9 +410,34 @@ const Materialtable = () => {
         );
     }
 
+    const handleSelectionChange = (row) => {
+        console.log("Current row:", row);
+    
+        if (row && row.original && row.original.sub) {
+            const userId = row.original.sub;
+            console.log("selected row", userId);
+        } else {
+            console.error("Invalid row or missing 'original' property", row);
+        }
+    };
+    
+    
+
+
     const table = useMaterialReactTable({
         columns,
         data,
+        enableRowSelection: true,
+        getRowId: (row) => row.sub,
+        onRowSelectionChange: ({ row }) => {
+            if (row) {
+                handleSelectionChange(row);
+                setRowSelection(); // Check if this function requires any parameters
+            } else {
+                console.error("Invalid row", row);
+            }
+        },
+        state: { rowSelection },
         enableExpandAll: true, //hide expand all double arrow in column header
         enableExpanding: true,
         filterFromLeafRows: true, //apply filtering to all rows instead of just parent rows
@@ -423,7 +455,8 @@ const Materialtable = () => {
             sx: {
                 cursor: 'pointer',
                 backgroundColor: getBackgroundColor(row.original),
-            }}),
+            }
+        }),
         renderDetailPanel,
 
     });
