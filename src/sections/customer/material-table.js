@@ -270,7 +270,7 @@ const Materialtable = () => {
         return backgroundColor !== undefined ? backgroundColor : 'inherit';
     };
 
-    const renderDetailPanel = ({ row }) => {
+    const RenderDetailPanel = ({ row }) => {
         useEffect(() => {
             if (row.original.sub) {
                 fetchDropdownData(row.original.sub);
@@ -457,7 +457,7 @@ const Materialtable = () => {
                 backgroundColor: getBackgroundColor(row.original),
             }
         }),
-        renderDetailPanel,
+        RenderDetailPanel,
 
     });
 
